@@ -1,10 +1,24 @@
 
-import { Provider } from 'react-redux'
+import QuizLayout from './components/QuizLayout';
+import ScoreCard from './components/ScoreCard';
+
+import { useSelector } from 'react-redux'
+import { RootState } from './Redux/store'; 
+
 function App() {
 
+
+  const {isQuizCompleted}=useSelector((state:RootState)=>state.quiz);
+
+
+    if(isQuizCompleted)
+    {return <ScoreCard />}
+
+
   return (
-    <Provider store={store}>
-    </Provider>
+    <>
+      {isQuizCompleted?<ScoreCard/>:<QuizLayout/>}
+    </>
   )
 }
 

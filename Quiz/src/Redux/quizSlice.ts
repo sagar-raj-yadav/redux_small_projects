@@ -5,15 +5,27 @@ import { createSlice } from '@reduxjs/toolkit'
         questions: [
             {
               id: 1,
-              question: "What is the capital of France?",
+              text: "What is the capital of France?",
               options: ["Paris", "London", "Berlin", "Rome"],
               correctAnswer: "Paris",
             },
             {
               id: 2,
-              question: "What is 2 + 2?",
+              text: "What is 2 + 2?",
               options: ["3", "4", "5", "6"],
               correctAnswer: "4",
+            },
+            {
+                id: 3,
+                text: "What is 23+37?",
+                options: ["39", "60", "15", "56"],
+                correctAnswer: "60",
+            },
+            {
+                id: 4,
+                text: "What is 2 - 2?",
+                options: ["-1","-3", "0", "6"],
+                correctAnswer: "0",
             },
           ],
           currentQuestionIndex: 0,
