@@ -1,50 +1,76 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### How slice works?
+i.const { selectedAnswer } = action.payload;
+Action se data lete hain, jo data bheja gaya.
+Example: User ne "Paris" choose kiya, toh action.payload me selectedAnswer: "Paris" hoga.
 
-Currently, two official plugins are available:
+ii.const currentQuestion = state.questions[state.currentQuestionIndex];
+Yahan se state.questions ke andar current question find hota hai using currentQuestionIndex.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+i.state ka use Redux store ke andar jo current data hai usko read ya update karne ke liye hota hai.
+Example:
+Current score kya hai → state.score.
+Kaunsa question chal raha hai → state.currentQuestionIndex.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+ii.action ka use Redux ko batane ke liye hota hai ki kya kaam karna hai.
+Agar user ne answer select kiya, toh ek action bheja jayega:
+Example:
+Agar user ne answer select kiya, toh ek action bheja jayega.
+dispatch(answerQuestion({ selectedAnswer: "Paris" }));
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
+conclusion: 
+action->user hume batayega ki kya kaam karna h.
+state -> current situation hai jo action ke baad update hoti hai.
+
+## ye hai action->
+{
+  type: "quiz/answerQuestion",
+  payload: {
+    selectedAnswer: "Paris", // User ne jo answer diya
   },
-})
-```
+}
+##
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Imagine a real life example of a restaurant
+i.state
+Tumhari notebook hai jisme tum current orders aur tables ka status likhte ho:
+Table 1 pe coffee order hui.
+Table 2 pe khaana complete ho gaya.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+->Ye sab data state mein hota hai.
+# data
+const state = {
+  tables: [
+    { id: 1, order: "Coffee", isServed: false },
+    { id: 2, order: "Dinner", isServed: true },
+  ],
+};
+#
+
+ii.Action
+Ek customer aaya aur bola: "1 tea chahiye."
+Ye request ek action hai jo Redux store ko batata hai ki kya kaam karna hai.
+# data
+const action = {
+  type: "ADD_ORDER",
+  payload: { tableId: 3, order: "Tea" },
+};
+#
+iii.Reducer
+Tum waiter ho, tum state (notebook) update karte ho based on action
+->Table 3 pe tea add ho gaya.
+# data
+const reducer = (state, action) => {
+  if (action.type === "ADD_ORDER") {
+    return {
+      ...state,
+      tables: [...state.tables, { id: action.payload.tableId, order: action.payload.order, isServed: false }],
+    };
+  }
+  return state;
+};
+#
+
