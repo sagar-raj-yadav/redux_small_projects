@@ -42,17 +42,7 @@ const QuizLayout:React.FC = () => {
     return (
       <div key={index}>
         <button
-          style={{
-            backgroundColor: "skyblue", 
-            color: "red", 
-            padding: "10px 20px", 
-            marginTop: "10px",
-            border: "none", 
-            borderRadius: "8px",
-            fontWeight:"bold",
-            fontSize: "16px", 
-            cursor: "pointer", 
-          }}
+          style={styles.button}
           onClick={()=>HandleAnswerClick(data)}
         >
           {data}
@@ -67,4 +57,18 @@ const QuizLayout:React.FC = () => {
   )
 }
 
+const styles={
+  button:{
+    backgroundColor: "skyblue", 
+    color: "red", 
+    padding: "10px 20px", 
+    marginTop: "10px",
+    border: "none", 
+    borderRadius: "8px",
+    fontWeight:"bold",
+    fontSize: "16px", 
+    cursor: "pointer", 
+  } 
+  
+}
 export default QuizLayout
